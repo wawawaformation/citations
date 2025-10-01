@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model\Entity;
 
 /**
@@ -9,7 +11,7 @@ abstract class AbstractEntity
 {
     /**
      * La clé primaire de la table Espece
-     * @var 
+     * @var
      */
     private ?int $id = null;
 
@@ -21,12 +23,12 @@ abstract class AbstractEntity
      */
     public function hydrate(array $data): self
     {
-        foreach($data as $key=>$value){
+        foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
 
-            if(method_exists($this, $method)){
+            if (method_exists($this, $method)) {
                 $this->$method($value);
-            }else{
+            } else {
                 throw new \InvalidArgumentException('La propriété ' . $key . ' n\'existe pas');
             }
         }
