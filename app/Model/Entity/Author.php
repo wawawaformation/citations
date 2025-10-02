@@ -12,7 +12,7 @@ class Author extends AbstractEntity
     /**
      * Nom de l'auteur
      */
-    private string $name;
+    private string $author;
 
     /**
      * Image de l'auteur (optionnelle)
@@ -29,19 +29,19 @@ class Author extends AbstractEntity
      * Retourne le nom de l'auteur
      * @return string
      */
-    public function getName(): string
+    public function getAuthor(): string
     {
-        return $this->name;
+        return $this->author;
     }
 
     /**
      * Définit le nom de l'auteur
-     * @param string $name
+     * @param string $author
      * @return self
      */
-    public function setName(string $name): self
+    public function setAuthor(string $author): self
     {
-        $this->name = $name;
+        $this->author = $author;
         return $this;
     }
 
