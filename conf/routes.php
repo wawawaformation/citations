@@ -17,6 +17,14 @@ $router->map('GET', '/', function () {
     (new App\Controller\QuoteController())->list();
 });
 
+$router->map('GET', '/quotes', function () {
+    (new App\Controller\QuoteController())->list();
+});
+
+$router->map('GET', '/quotes/list', function () {
+    (new App\Controller\QuoteController())->list();
+});
+
 $router->map('GET', '/quotes/show/[i:id]', function ($id) {
     (new App\Controller\QuoteController())->show($id);
 });
