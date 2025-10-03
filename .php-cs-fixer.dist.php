@@ -7,6 +7,7 @@ use PhpCsFixer\Finder; //con connait
 
 $finder = Finder::create()
     ->in(__DIR__ . '/app') //les dossiers qui seront analysés
+    ->in(__DIR__ . '/conf')
     ->name('*.php') //l'extension des fichiers qui seront analysé
     ->ignoreDotFiles(true) //on analyse pas les fichiers commencant par des points
     ->ignoreVCS(true);// je ne sais pas

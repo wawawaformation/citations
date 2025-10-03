@@ -1,11 +1,15 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Model\Repository;
 
 use App\Model\Entity\AbstractEntity;
 use PDO;
 use PDOStatement;
 
-abstract class AbstractRepository{
+abstract class AbstractRepository
+{
     protected PDO $pdo;
     protected string $table;
     protected string $entity;
@@ -15,7 +19,7 @@ abstract class AbstractRepository{
         $this->pdo = $pdo;
     }
 
-       /**
+    /**
      * Prépare au beaoin et exécute une requête SQL avec des paramètres.
      * @param string $sql la requete SQL
      * @param array $params tableau associatif de paramètres à lier à la requête
@@ -27,17 +31,17 @@ abstract class AbstractRepository{
             $q = $this->pdo->query($sql);
         } else {
             $q = $this->pdo->prepare($sql);
-           
+
             $q->execute($params);
         }
         return $q;
     }
 
-     /**
-     * Retourne la liste des especes
-     *
-     * @return array litse des entités d'une table
-     */
+    /**
+    * Retourne la liste des especes
+    *
+    * @return array litse des entités d'une table
+    */
     public function findAll(): array
     {
         $sql = 'SELECT * FROM ' . $this->table;
@@ -46,13 +50,13 @@ abstract class AbstractRepository{
 
         $entities = [];
 
-        foreach($data as $row){
+        foreach ($data as $row) {
             $fqcn = 'App\Model\Entity\\' . $this->entity;
-            if(class_exists($fqcn)){
+            if (class_exists($fqcn)) {
                 $entity = new $fqcn();
                 $entity->hydrate($row);
                 $entities[] = $entity;
-            }else{
+            } else {
                 throw new \Exception('Probleme interne');
             }
         }
@@ -74,14 +78,14 @@ abstract class AbstractRepository{
         $q->execute();
         $data = $q->fetch();
 
-        if($data){
+        if ($data) {
             $fqcn = 'App\Model\Entity\\' . $this->entity;
-           if(class_exists($fqcn)){
-            $entity = new $fqcn();
-            $entity->hydrate($data);
-           }
-           return $entity;
-        }else{
+            if (class_exists($fqcn)) {
+                $entity = new $fqcn();
+                $entity->hydrate($data);
+            }
+            return $entity;
+        } else {
             return null;
         }
     }
@@ -93,15 +97,15 @@ abstract class AbstractRepository{
      * @param array $data les données sous forme d'un tableau associatif
      * @return object
      */
-    public function create(array $data) : AbstractEntity|false
+    public function create(array $data): AbstractEntity|false
     {
-         $sql = "INSERT INTO " . $this->table . " (";
+        $sql = 'INSERT INTO ' . $this->table . ' (';
         $sql .= implode(',', array_keys($data));
-        $sql .= ") VALUES (";
+        $sql .= ') VALUES (';
         $sql .= ':' . implode(',:', array_keys($data));
-        $sql .= ")";
-       
-        if($this->statement($sql, $data)){
+        $sql .= ')';
+
+        if ($this->statement($sql, $data)) {
             $id = $this->pdo->lastInsertId();
             return $this->find($id);
         } else {
@@ -120,9 +124,8 @@ abstract class AbstractRepository{
     public function delete(int $id): bool
     {
         $sql = 'DELETE FROM ' .$this->table .' WHERE id=:id';
-        $q= $this->pdo->prepare($sql);
+        $q = $this->pdo->prepare($sql);
         $q->bindValue(':id', $id, PDO::PARAM_INT);
         return $q->execute();
     }
 }
-
