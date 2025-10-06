@@ -54,7 +54,7 @@ abstract class AbstractRepository
             $fqcn = 'App\Model\Entity\\' . $this->entity;
             if (class_exists($fqcn)) {
                 $entity = new $fqcn();
-                dump($this->normalizeRow($row));
+                
                 $entity->hydrate($this->normalizeRow($row));
                 $entities[] = $entity;
             } else {

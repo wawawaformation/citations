@@ -10,7 +10,8 @@ class AuthorController extends AbstractController
     {
         $author = new AuthorRepository(\App\Database\PDOSingleton::getInstance());
         $authors = $author->findAll();
-        dd($authors);
+
+        $this->render('author/list', ['authors' => $authors]);
     }
 
 
