@@ -13,12 +13,15 @@ class QuoteController extends AbstractController
 
 
        // on va chercher les citations en base de données
-       $pdo = new \PDO('mysql:host=localhost;dbname=ecf2', 'root', '');
-       $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-       $pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-       $quoteRepository = new QuoteRepository($pdo);
+
+       $quoteRepository = new QuoteRepository(\App\Database\PDOSingleton::getInstance());
        $quotes = $quoteRepository->findAll();
-       dd($quotes);
+    
+
+
+       // on rend la vue
+
+       require ROOT . '/view/quote/list.php';
     }
 
     public function show($id)
