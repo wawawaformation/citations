@@ -22,7 +22,7 @@ class Quote extends AbstractEntity
     /**
      * Identifiant de l'auteur associé (optionnel)
      */
-    private ?int $author_id = null;
+    private ?int $authorId = null;
 
 
     /**
@@ -69,19 +69,19 @@ class Quote extends AbstractEntity
      * Retourne l'identifiant de l'auteur associé
      * @return int|null
      */
-    public function getAuthor_id(): ?int
+    public function getAuthorId(): ?int
     {
-        return $this->author_id;
+        return $this->authorId;
     }
 
     /**
      * Définit l'identifiant de l'auteur associé
-     * @param int|null $author_id
+     * @param int|null $authorId
      * @return self
      */
-    public function setAuthor_id(?int $author_id): self
+    public function setAuthorId(?int $authorId): self
     {
-        $this->author_id = $author_id;
+        $this->authorId = $authorId;
         return $this;
     }
 }

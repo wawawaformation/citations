@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 // Authors routes
 $router->map('GET', '/authors', function () {
-    echo 'List of authors';
+   (new App\Controller\AuthorController())->index();
 });
 
 
@@ -14,15 +14,15 @@ $router->map('GET', '/authors', function () {
 
 // Quotes routes
 $router->map('GET', '/', function () {
-    (new App\Controller\QuoteController())->list();
+    (new App\Controller\QuoteController())->index();
 });
 
 $router->map('GET', '/quotes', function () {
-    (new App\Controller\QuoteController())->list();
+    (new App\Controller\QuoteController())->index();
 });
 
 $router->map('GET', '/quotes/list', function () {
-    (new App\Controller\QuoteController())->list();
+    (new App\Controller\QuoteController())->index();
 });
 
 $router->map('GET', '/quotes/show/[i:id]', function ($id) {

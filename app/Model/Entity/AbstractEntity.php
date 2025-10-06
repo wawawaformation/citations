@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use DateTime;
+
 /**
  * Classe abstraite représentant une entité de base
  */
@@ -15,6 +17,9 @@ abstract class AbstractEntity
      */
     private ?int $id = null;
 
+    protected ?DateTime $createdAt = null;
+
+    protected ?DateTime $updatedAt = null;
 
     /**
      * Hydrate un objet de type Espece
@@ -58,6 +63,28 @@ abstract class AbstractEntity
             throw new \LogicException("L'id est en lecture seule");
         }
         $this->id = $id;
+        return $this;
+    }
+
+
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }   
+    public function setUpdatedAt(?DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function setCreatedAt(?DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 }

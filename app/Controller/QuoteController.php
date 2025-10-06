@@ -8,7 +8,7 @@ use App\Model\Repository\QuoteRepository;
 
 class QuoteController extends AbstractController
 {
-    public function list()
+    public function index()
     {
 
 
@@ -17,7 +17,7 @@ class QuoteController extends AbstractController
        $quoteRepository = new QuoteRepository(\App\Database\PDOSingleton::getInstance());
        $quotes = $quoteRepository->findAll();
     
-
+        dd($quotes);
 
        // on rend la vue
 

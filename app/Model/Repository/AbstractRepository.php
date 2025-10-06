@@ -38,10 +38,10 @@ abstract class AbstractRepository
     }
 
     /**
-    * Retourne la liste des especes
-    *
-    * @return array litse des entités d'une table
-    */
+     * Retourne la liste des especes
+     *
+     * @return array litse des entités d'une table
+     */
     public function findAll(): array
     {
         $sql = 'SELECT * FROM ' . $this->table;
@@ -54,7 +54,8 @@ abstract class AbstractRepository
             $fqcn = 'App\Model\Entity\\' . $this->entity;
             if (class_exists($fqcn)) {
                 $entity = new $fqcn();
-                $entity->hydrate($row);
+                dump($this->normalizeRow($row));
+                $entity->hydrate($this->normalizeRow($row));
                 $entities[] = $entity;
             } else {
                 throw new \Exception('Probleme interne');
@@ -106,7 +107,7 @@ abstract class AbstractRepository
         $sql .= ')';
 
         if ($this->statement($sql, $data)) {
-            $id = $this->pdo->lastInsertId();
+            $id = (int) $this->pdo->lastInsertId();
             return $this->find($id);
         } else {
             return false;
@@ -123,9 +124,40 @@ abstract class AbstractRepository
      */
     public function delete(int $id): bool
     {
-        $sql = 'DELETE FROM ' .$this->table .' WHERE id=:id';
+        $sql = 'DELETE FROM ' . $this->table . ' WHERE id=:id';
         $q = $this->pdo->prepare($sql);
         $q->bindValue(':id', $id, PDO::PARAM_INT);
         return $q->execute();
+    }
+
+
+
+    protected function normalizeRow(array $row): array
+    {
+
+        $newRow = [];
+        foreach ($row as $key => $value) {
+            // convert to camelCase
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '', $key);
+            $key = lcfirst($key);
+            $newRow[$key] = $value;
+
+
+            // date format for key ending with _at
+            if (str_ends_with($key, 'At') && $value !== null) {
+                $date = new \DateTime($value);
+                $newRow[$key] = $date;
+            }
+
+
+            // date format for key beginning with is or has
+            if (str_starts_with($key, 'is') || str_starts_with($key, 'has')) {
+                $newRow[$key] = (bool)$value;
+            }
+        }
+
+        return $newRow;
     }
 }

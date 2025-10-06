@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Model\Repository\AuthorRepository;
+
 class AuthorController extends AbstractController
 {
-    public function list()
+    public function index()
     {
-        
+        $author = new AuthorRepository(\App\Database\PDOSingleton::getInstance());
+        $authors = $author->findAll();
+        dd($authors);
     }
 
 
