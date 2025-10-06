@@ -10,4 +10,10 @@ class ErrorController extends AbstractController
         http_response_code(404);
         echo 'Page not found - 404';
     }
+
+    public function exception()
+    {
+       $msgError =  $_SESSION['msgError'];
+       unset($_SESSION['msgError']);
+    }
 }

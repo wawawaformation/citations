@@ -42,4 +42,8 @@ $router->map('GET', '/quotes/delete/[i:id]', function ($id) {
     (new App\Controller\QuoteController())->delete($id);
 });
 
-// Users routes
+
+
+$router->map('GET', '/error/exception', function () {
+   (new App\Controller\ErrorController())->exception();
+});
