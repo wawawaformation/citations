@@ -8,19 +8,39 @@ use App\Model\Entity\AbstractEntity;
 use PDO;
 use PDOStatement;
 
+
+/**
+ * Classe abstraite représentant un repository
+ * Gère les opérations de base sur une table
+ */
 abstract class AbstractRepository
 {
     protected PDO $pdo;
+
+    /**
+     * Nom de la table associée au repository
+     * @var string
+     */
     protected string $table;
+
+    /**
+     * Nom de l'entité associée au repository
+     * @var string
+     */
     protected string $entity;
 
+
+    /**
+     * Constructeur de la classe AbstractRepository
+     * @param \PDO $pdo à injecter
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
     /**
-     * Prépare au beaoin et exécute une requête SQL avec des paramètres.
+     * Prépare au besoin et exécute une requête SQL avec des paramètres.
      * @param string $sql la requete SQL
      * @param array $params tableau associatif de paramètres à lier à la requête
      * @return bool|PDOStatement
@@ -38,9 +58,9 @@ abstract class AbstractRepository
     }
 
     /**
-     * Retourne la liste des especes
+     * Retourne la liste des entités d'une table
      *
-     * @return array litse des entités d'une table
+     * @return array liste des entités d'une table
      */
     public function findAll(): array
     {
@@ -132,9 +152,14 @@ abstract class AbstractRepository
 
 
 
+
+    /**
+     * Normalise une ligne de résultat de requête
+     * @param array $row le tableau associatif d'une ligne
+     * @return array un tableau associatif avec les clés en camelCase et les dates en DateTime
+     */
     protected function normalizeRow(array $row): array
     {
-
         $newRow = [];
         foreach ($row as $key => $value) {
             // convert to camelCase

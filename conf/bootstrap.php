@@ -1,32 +1,47 @@
 <?php
 
-if(DEBUG){
-    ini_set('display_errors', '1');
-    ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL);
-}else{
-    ini_set('display_errors', '0');
-    ini_set('display_startup_errors', '0');
-    error_reporting(0);
+/** Bootstrap du projet */
+
+if (DEBUG) {
+    $params = [
+        'displayErrorReporting' => E_ALL,
+        'startupErrors' => 1,
+        'errors' => 1
+    ];
+} else {
+    $params = [
+        'displayErrorReporting' => 0,
+        'errors' => 0,
+        'startupErrors' => 0
+    ];
 }
 
 
+ini_set('display_errors', (string)$params['errors']);
+ini_set('display_startup_errors', (string)$params['startupErrors']);
+error_reporting((int)$params['displayErrorReporting']);
+
+
+
+/**
+ * Gestion des exceptions
+ */
 set_exception_handler(function (\Throwable $e) {
-   $msgError = 'Une erreur est survenue : ';
+    $msgError = 'Une erreur est survenue : ';
 
-   if(DEBUG){
-       $msgError .= '<br>' . $e->getMessage() . ' dans le fichier ' . $e->getFile() . ' à la ligne ' . $e->getLine();
-   }
+    if (DEBUG) {
+        $msgError .= '<br>' . $e->getMessage() . ' dans le fichier ' . $e->getFile() . ' à la ligne ' . $e->getLine();
+    }
 
-   $_SESSION['msgError'] = $msgError;
+    $_SESSION['msgError'] = $msgError;
 
 
-   header('Location: /error/exception');
-   exit;
+    header('Location: /error/exception');
+    exit;
 });
 
 
 
 
 
-require_once __DIR__.'/router.php';
+require_once __DIR__ . '/router.php';

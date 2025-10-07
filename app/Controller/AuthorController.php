@@ -35,13 +35,10 @@ class AuthorController extends AbstractController
         }
 
         $this->render('/author/add');
-
-       
     }
 
 
     public function delete(int $id)
-
     {
         $authorRepo = new AuthorRepository(\App\Database\PDOSingleton::getInstance());
 
