@@ -50,6 +50,13 @@
         </div>
     </nav>
 
+    <?php if(isset($_SESSION['flash'])) : ?> 
+     <div class="container-fluid bg-<?= $_SESSION['flash']['code'] ?> text-white text-center py-2">
+        <?= $_SESSION['flash']['text'] ?>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
+
     <div class="container my-5">
         <h1 class="title mb-4">
             <?= $pageTitle ?>

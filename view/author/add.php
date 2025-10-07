@@ -14,8 +14,8 @@
 
  <form action="/authors/add" method="post">
             <div class="mb-4">
-                <label for="name" class="form-label">Nom de l'auteur (obligatoire)</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="author" class="form-label">Nom de l'auteur (obligatoire)</label>
+                <input type="text" class="form-control" id="author" name="author" required>
             </div>
 
             <div class="mb-4">

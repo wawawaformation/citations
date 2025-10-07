@@ -11,6 +11,9 @@ $router->map('GET', '/authors', function () {
 $router->map('GET|POST', '/authors/add', function () {
    (new App\Controller\AuthorController())->add();
 });
+$router->map('GET', '/authors/delete/[i:id]', function ($id) {
+   (new App\Controller\AuthorController())->delete((int) $id);
+});
 
 
 
