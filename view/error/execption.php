@@ -13,7 +13,7 @@ ob_start();
     Erreur 500 <br>
    
     
-    <?= $params['msg'] ?>
+     <!---    Erreur 404 <br> -->
 
 </div>
 
