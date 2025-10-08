@@ -14,10 +14,13 @@ $router->map('GET|POST', '/authors/add', function () {
 $router->map('GET', '/authors/delete/[i:id]', function ($id) {
    (new App\Controller\AuthorController())->delete((int) $id);
 });
+$router->map('GET', '/authors/[i:id]', function ($id) {
+   (new App\Controller\AuthorController())->show((int) $id);
+});
 
-
-
-
+$router->map('GET', '/json/authors', function () {
+   (new App\Controller\AuthorController())->jsonAll();
+});
 
 
 $router->map('GET', '/error/exception', function () {

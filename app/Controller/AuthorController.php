@@ -6,12 +6,24 @@ use App\Model\Repository\AuthorRepository;
 
 class AuthorController extends AbstractController
 {
+
+
+
     public function index()
     {
         $author = new AuthorRepository(\App\Database\PDOSingleton::getInstance());
         $authors = $author->findAll();
 
         $this->render('author/list', ['authors' => $authors]);
+    }
+
+    public function show($id){
+        $authorRepo = new AuthorRepository(\App\Database\PDOSingleton::getInstance());
+        $author = $authorRepo->find($id);
+
+       
+
+        $this->render('author/show', ['author' => $author]);
     }
 
     public function add()
@@ -47,5 +59,25 @@ class AuthorController extends AbstractController
            $this->addFlash('Votre auteur a bien supprimé', AbstractController::SUCCESS);
             $this->redirect('/authors');
         }
+    }
+
+
+    public function jsonAll()
+    {
+        $authorRepo = new AuthorRepository(\App\Database\PDOSingleton::getInstance());
+        $authors = $authorRepo->findAll();
+
+       
+      $data = [];
+      foreach ($authors as $author) {
+          $temp = [
+              'id' => $author->getId(),
+              'author' => $author->getAuthor(),
+              'biography' => $author->getBiography()
+          ];
+            $data[] = $temp;
+      }
+
+     $this->jsonResponse($data);
     }
 }
