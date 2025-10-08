@@ -41,7 +41,7 @@
                                 class="bi bi-eye"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/logout" title="Se déconnecter"><i
+                        <a class="nav-link" href="/logout" title="Se déconnecter"><i
                                 class="bi bi-box-arrow-right"></i></a>
                     </li>
                 </ul>

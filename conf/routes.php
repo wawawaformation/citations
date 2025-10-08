@@ -26,3 +26,14 @@ $router->map('GET', '/json/authors', function () {
 $router->map('GET', '/error/exception', function () {
    (new App\Controller\ErrorController())->exception();
 });
+
+
+
+
+// Authentification routes
+$router->map('GET|POST', '/login', function () {
+   (new App\Controller\AuthController())->login();
+});
+$router->map('GET', '/logout', function () {
+   (new App\Controller\AuthController())->logout();
+});

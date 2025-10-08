@@ -8,7 +8,9 @@ namespace App\Model\Entity;
  */
 class User extends AbstractEntity
 {
-  
+
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_USER = 'ROLE_USER';
 
     /**
      * mail de l'utilisateur
