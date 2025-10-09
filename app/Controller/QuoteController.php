@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Database\PDOSingleton;
 use App\Model\Repository\QuoteRepository;
 
 class QuoteController extends AbstractController
@@ -12,14 +13,10 @@ class QuoteController extends AbstractController
     {
 
 
-       // on va chercher les citations en base de données
 
-       $quoteRepository = new QuoteRepository(\App\Database\PDOSingleton::getInstance());
-       $quotes = $quoteRepository->findAll();
-    
-        dd($quotes);
+        $quoteRepo = new QuoteRepository(PDOSingleton::getInstance());
 
-       // on rend la vue
+        $quotes = $quoteRepo->findAll();
 
        require ROOT . '/view/quote/list.php';
     }

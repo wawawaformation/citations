@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
+
 /**
  * Controleur abstrait qui permet de factoriser des fonctionnalités communes à tous les controleurs
  */
@@ -74,6 +75,21 @@ abstract class AbstractController
         echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }
+
+
+    protected function accessValidator(string $role = 'user')
+    {
+        if(!$_SESSION['user']){
+            $this->addFlash('Vous devez être connecté pour accéder à cette page', AbstractController::DANGER);
+            $this->redirect('/login');
+        }
+
+        if($role == 'admin' && empty($_SESSION['user']['is_admin'])){
+            $this->addFlash('Vous n\'avez pas les droits pour accéder à cette page', AbstractController::DANGER);
+            $this->redirect('/');
+        }
+    }
+    
 }
 
 

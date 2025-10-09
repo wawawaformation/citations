@@ -23,8 +23,9 @@ $router->map('GET', '/json/authors', function () {
 });
 
 
-$router->map('GET', '/error/exception', function () {
-   (new App\Controller\ErrorController())->exception();
+// Quotes routes
+$router->map('GET', '/quotes', function () {
+   (new App\Controller\QuoteController())->index();
 });
 
 
@@ -36,4 +37,17 @@ $router->map('GET|POST', '/login', function () {
 });
 $router->map('GET', '/logout', function () {
    (new App\Controller\AuthController())->logout();
+});
+
+
+// utser routes
+$router->map('GET', '/users', function () {
+   (new App\Controller\UserController())->index();
+});
+
+
+
+
+$router->map('GET', '/error/exception', function () {
+   (new App\Controller\ErrorController())->exception();
 });

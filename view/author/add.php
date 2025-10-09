@@ -13,6 +13,8 @@
 <div class="g-4 my-4">
 
  <form action="/authors/add" method="post">
+
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             <div class="mb-4">
                 <label for="author" class="form-label">Nom de l'auteur (obligatoire)</label>
                 <input type="text" class="form-control" id="author" name="author" required>
