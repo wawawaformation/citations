@@ -27,6 +27,9 @@ $router->map('GET', '/json/authors', function () {
 $router->map('GET', '/quotes', function () {
    (new App\Controller\QuoteController())->index();
 });
+$router->map('GET|POST', '/quotes/add', function () {
+   (new App\Controller\QuoteController())->add();
+});
 
 
 

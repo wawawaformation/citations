@@ -21,10 +21,8 @@ LEFT JOIN author ON author.id = quote.author_id';
 
         $q = $this->statement($sql);
         $result = $q->fetchAll();
-
         $quotes =  [];
         foreach ($result as $row) {
-
             //on cree l'auteur
             $author = new Author();
             if ($row['author_id'] !== null) {                
@@ -33,7 +31,6 @@ LEFT JOIN author ON author.id = quote.author_id';
                     'author' => $row['author'],
                 ]);
             }
-           
             // on cree la citation avec l'auteur insere
             $quote = new Quote();
             $quote->hydrate([
@@ -41,9 +38,8 @@ LEFT JOIN author ON author.id = quote.author_id';
                 'quote'=> $row['quote'],
                 'author'=>$author,
             ]);
-
             $quotes[] = $quote;
         }
-        dd($quotes);
+        return $quotes;
     }
 }

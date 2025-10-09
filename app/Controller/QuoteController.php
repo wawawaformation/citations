@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Database\PDOSingleton;
 use App\Model\Repository\QuoteRepository;
+use App\Model\Repository\AuthorRepository;
 
 class QuoteController extends AbstractController
 {
@@ -17,27 +18,18 @@ class QuoteController extends AbstractController
         $quoteRepo = new QuoteRepository(PDOSingleton::getInstance());
 
         $quotes = $quoteRepo->findAll();
+       $this->render('quote/list', $quotes);
 
        require ROOT . '/view/quote/list.php';
     }
 
-    public function show($id)
+    public function add()
     {
-        echo 'Il faudra montrer la citation ' . htmlspecialchars($id);
+        $authorRepo = new AuthorRepository(PDOSingleton::getInstance());
+        $authors = $authorRepo->findAll();
+
+        $this->render('quote/add', $authors);
     }
 
-    public function create()
-    {
-        echo 'Il faudra créer une nouvelle citation';
-    }
-
-    public function edit($id)
-    {
-        echo 'Il faudra modifier la citation ' . htmlspecialchars($id);
-    }
-
-    public function delete($id)
-    {
-        echo 'Il faudra supprimer la citation ' . htmlspecialchars($id);
-    }
+  
 }
