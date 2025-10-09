@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Repository;
 
 use App\Model\Entity\Author;
+use App\Model\Entity\Quote;
 
 class QuoteRepository extends AbstractRepository
 {
@@ -21,19 +22,28 @@ LEFT JOIN author ON author.id = quote.author_id';
         $q = $this->statement($sql);
         $result = $q->fetchAll();
 
-        $authors =  [];
+        $quotes =  [];
         foreach ($result as $row) {
 
+            //on cree l'auteur
             $author = new Author();
-            if ($row['author_id'] !== null) {                //
+            if ($row['author_id'] !== null) {                
                 $author->hydrate([
                     'id' => $row['author_id'],
                     'author' => $row['author'],
-
                 ]);
             }
-            dump($author);
+           
+            // on cree la citation avec l'auteur insere
+            $quote = new Quote();
+            $quote->hydrate([
+                'id'=> $row['id'],
+                'quote'=> $row['quote'],
+                'author'=>$author,
+            ]);
+
+            $quotes[] = $quote;
         }
-        dd();
+        dd($quotes);
     }
 }
